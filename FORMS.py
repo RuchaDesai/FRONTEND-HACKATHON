@@ -37,8 +37,11 @@ def page2():
       X = cv.transform([s])
       y = [  i.predict(X) for i in model_list]  
       y = [ list(i)[0] for i in y]
+      for i in range(len(y)):
+         if y[i] ==1: y[i] = 'Yes'
+         else: y[i] = 'No'
       app.logger.info(str(y))
-      string = 'toxic: {} severe_toxic: {} obscene: {} threat:{} insult: {} identiy_hate: {}'.format(y[0],y[1],y[2],y[3],y[4],y[5])
+      string = 'toxic: {}\n severe_toxic: {}\n obscene: {}\n threat:{}\n insult: {}\n identiy_hate: {}\n'.format(y[0],y[1],y[2],y[3],y[4],y[5])
       app.logger.info(string)
 
       return render_template("forms1.html", output = output , y_pred =string)
